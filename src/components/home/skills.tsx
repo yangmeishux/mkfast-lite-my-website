@@ -38,6 +38,27 @@ export function Skills({ locale }: { locale: AppLocale }) {
               {message('skills_action', locale)}
               <IconArrowRight aria-hidden="true" className="size-5" />
             </ButtonLink>
+            <nav
+              aria-label={message('practice_groups', locale)}
+              className="mt-8 grid gap-3"
+            >
+              {skillGroups.map((group, index) => (
+                <a
+                  key={group.id}
+                  href={practiceHref(locale, `/skills#${group.id}`)}
+                  className={cn(
+                    practiceLink,
+                    'flex min-h-12 items-center gap-4 rounded-[12px] border-2 border-ink px-4 py-3 text-lg font-black text-ink no-underline shadow-[4px_4px_0_0_var(--ink)] transition-[transform,box-shadow] duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--ink)]',
+                    groupTone[group.id]
+                  )}
+                >
+                  <span className="font-black text-ink/45">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  {group[locale]}
+                </a>
+              ))}
+            </nav>
           </div>
           <div className="grid gap-3">
             {featured.map((skill, index) => (
@@ -71,23 +92,6 @@ export function Skills({ locale }: { locale: AppLocale }) {
             ))}
           </div>
         </div>
-        <nav
-          aria-label={message('practice_groups', locale)}
-          className="mt-10 flex flex-wrap gap-2"
-        >
-          {skillGroups.map((group) => (
-            <a
-              key={group.id}
-              href={practiceHref(locale, `/skills#${group.id}`)}
-              className={cn(
-                practiceLink,
-                'border-2 border-ink bg-paper px-3 py-2 text-sm font-black text-ink no-underline hover:bg-yellow'
-              )}
-            >
-              {group[locale]}
-            </a>
-          ))}
-        </nav>
       </Container>
     </Section>
   );
