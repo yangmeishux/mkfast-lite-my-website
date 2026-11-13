@@ -34,7 +34,7 @@ export const Route = createRootRoute({
 });
 
 function currentLocale(pathname: string): AppLocale {
-  return pathname === '/zh' || pathname.startsWith('/zh/') ? 'zh' : 'en';
+  return pathname === '/en' || pathname.startsWith('/en/') ? 'en' : 'zh';
 }
 
 function RootLayout() {
@@ -81,7 +81,7 @@ function NotFound() {
         </p>
         <a
           className="mt-8 rounded-lg border-2 border-ink bg-yellow px-5 py-3 font-black text-ink shadow-brutal"
-          href={locale === 'zh' ? '/zh' : '/'}
+          href={locale === 'en' ? '/en' : '/'}
         >
           {message('not_found_action', locale)}
         </a>

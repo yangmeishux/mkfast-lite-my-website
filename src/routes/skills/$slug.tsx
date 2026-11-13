@@ -17,14 +17,14 @@ export const Route = createFileRoute('/skills/$slug')({
   head: ({ loaderData }) => {
     if (!loaderData) {
       return {
-        meta: [{ title: message('not_found_meta_title', 'en') }],
+        meta: [{ title: message('not_found_meta_title', 'zh') }],
       };
     }
     return contentHead(
-      'en',
+      'zh',
       `/skills/${loaderData.slug}`,
-      `${loaderData.en.title} | ${websiteConfig.name}`,
-      loaderData.en.summary,
+      `${loaderData.zh.title}｜${websiteConfig.legalName}`,
+      loaderData.zh.summary,
       getRequestOrigin()
     );
   },
@@ -33,5 +33,5 @@ export const Route = createFileRoute('/skills/$slug')({
 
 function SkillRoute() {
   const skill = Route.useLoaderData();
-  return <SkillDetail locale="en" skill={skill} />;
+  return <SkillDetail locale="zh" skill={skill} />;
 }

@@ -7,11 +7,11 @@ import { contentHead } from '@/lib/seo';
 export const Route = createFileRoute('/workflows/')({
   head: () =>
     contentHead(
-      'en',
+      'zh',
       '/workflows',
-      message('workflows_meta_title', 'en'),
-      message('workflow_description', 'en'),
+      message('workflows_meta_title', 'zh'),
+      message('workflow_description', 'zh'),
       getRequestOrigin()
     ),
-  component: () => <WorkflowCatalog locale="en" />,
+  component: () => <WorkflowCatalog locale="zh" />,
 });

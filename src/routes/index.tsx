@@ -9,6 +9,6 @@ const getRequestOrigin = createIsomorphicFn()
   .client(() => window.location.origin);
 
 export const Route = createFileRoute('/')({
-  head: () => homeHead('en', getRequestOrigin()),
-  component: () => <HomePage locale="en" />,
+  head: () => homeHead('zh', getRequestOrigin()),
+  component: () => <HomePage locale="zh" />,
 });

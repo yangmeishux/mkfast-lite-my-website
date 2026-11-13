@@ -15,12 +15,12 @@ export const Route = createFileRoute('/workflows/$slug')({
   head: ({ loaderData }) => {
     const item = loaderData ?? workflow;
     return contentHead(
-      'en',
+      'zh',
       `/workflows/${item.slug}`,
-      `${item.en.title} | ${websiteConfig.name}`,
-      item.en.summary,
+      `${item.zh.title}｜${websiteConfig.legalName}`,
+      item.zh.summary,
       getRequestOrigin()
     );
   },
-  component: () => <WorkflowDetail locale="en" />,
+  component: () => <WorkflowDetail locale="zh" />,
 });

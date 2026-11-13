@@ -30,7 +30,7 @@ those only when they match the product you are building.
 
 ## Features
 
-- **Multilingual by default** — English at `/` and Simplified Chinese at `/zh`,
+- **Multilingual by default** — Simplified Chinese at `/` and English at `/en`,
   with typed Paraglide messages and a language menu that keeps the current
   section anchor.
 - **A focused landing page** — responsive navigation, hero, stack,
@@ -70,8 +70,8 @@ pnpm install
 pnpm dev
 ```
 
-Open `http://localhost:3000` for English or `http://localhost:3000/zh` for
-Simplified Chinese.
+Open `http://localhost:3000` for Simplified Chinese or `http://localhost:3000/en`
+for English.
 
 ### Common commands
 
@@ -102,7 +102,7 @@ intentionally absent application routes.
    `src/components/home/home-page.tsx`; adjust visual tokens in
    `src/styles.css` when needed.
 5. Add routes under `src/routes/` with TanStack Router's file-route
-   convention. Add matching English and `/zh` routes, localized metadata, and
+   convention. Add matching Chinese and `/en` routes, localized metadata, and
    messages when a page needs localized content.
 
 Locale JSON files are the source of truth. Never edit

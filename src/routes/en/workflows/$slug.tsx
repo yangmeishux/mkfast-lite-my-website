@@ -5,7 +5,7 @@ import { workflow } from '@/content/practice';
 import { getRequestOrigin } from '@/lib/request-origin';
 import { contentHead } from '@/lib/seo';
 
-export const Route = createFileRoute('/zh/workflows/$slug')({
+export const Route = createFileRoute('/en/workflows/$slug')({
   loader: ({ params }) => {
     if (params.slug !== workflow.slug) {
       throw notFound();
@@ -15,12 +15,12 @@ export const Route = createFileRoute('/zh/workflows/$slug')({
   head: ({ loaderData }) => {
     const item = loaderData ?? workflow;
     return contentHead(
-      'zh',
-      `/zh/workflows/${item.slug}`,
-      `${item.zh.title}｜${websiteConfig.legalName}`,
-      item.zh.summary,
+      'en',
+      `/en/workflows/${item.slug}`,
+      `${item.en.title} | ${websiteConfig.name}`,
+      item.en.summary,
       getRequestOrigin()
     );
   },
-  component: () => <WorkflowDetail locale="zh" />,
+  component: () => <WorkflowDetail locale="en" />,
 });

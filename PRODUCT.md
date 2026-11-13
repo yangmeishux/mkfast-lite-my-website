@@ -38,7 +38,7 @@ configuration surface, and no unused service bindings.
 
 ## Capabilities and Constraints
 
-- Human-facing routes are `/` in English and `/zh` in Simplified Chinese.
+- Human-facing routes are `/` in Simplified Chinese and `/en` in English.
 - The site supports light, dark, and system themes.
 - The landing page includes navigation, product positioning, capabilities,
   stack, included and excluded scope, a four-step customization workflow, FAQ,

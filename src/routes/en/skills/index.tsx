@@ -4,14 +4,14 @@ import { message } from '@/lib/locale';
 import { getRequestOrigin } from '@/lib/request-origin';
 import { contentHead } from '@/lib/seo';
 
-export const Route = createFileRoute('/zh/skills/')({
+export const Route = createFileRoute('/en/skills/')({
   head: () =>
     contentHead(
-      'zh',
-      '/zh/skills',
-      message('skills_meta_title', 'zh'),
-      message('skills_description', 'zh'),
+      'en',
+      '/en/skills',
+      message('skills_meta_title', 'en'),
+      message('skills_description', 'en'),
       getRequestOrigin()
     ),
-  component: () => <SkillCatalog locale="zh" />,
+  component: () => <SkillCatalog locale="en" />,
 });

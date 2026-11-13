@@ -7,14 +7,14 @@ import { cn } from '@/lib/utils';
 
 describe('tootem9 core contracts', () => {
   it('uses localized simple home paths', () => {
-    expect(localizedPath('en')).toBe('/');
-    expect(localizedPath('zh')).toBe('/zh');
-    expect(localizedPath('en', '#stack')).toBe('/#stack');
-    expect(localizedPath('zh', '#stack')).toBe('/zh#stack');
-    expect(withLocale('/skills/grill-me', 'zh')).toBe('/zh/skills/grill-me');
-    expect(withLocale('/zh/skills/grill-me', 'en')).toBe('/skills/grill-me');
-    expect(withLocale('/zh', 'en')).toBe('/');
-    expect(withLocale('/', 'zh')).toBe('/zh');
+    expect(localizedPath('zh')).toBe('/');
+    expect(localizedPath('en')).toBe('/en');
+    expect(localizedPath('zh', '#stack')).toBe('/#stack');
+    expect(localizedPath('en', '#stack')).toBe('/en#stack');
+    expect(withLocale('/skills/grill-me', 'en')).toBe('/en/skills/grill-me');
+    expect(withLocale('/en/skills/grill-me', 'zh')).toBe('/skills/grill-me');
+    expect(withLocale('/en', 'zh')).toBe('/');
+    expect(withLocale('/', 'en')).toBe('/en');
     expect(localeMeta.zh.hreflang).toBe('zh-CN');
   });
 
@@ -37,14 +37,18 @@ describe('tootem9 core contracts', () => {
 
   it('builds absolute metadata from the configured or request origin', () => {
     expect(siteOrigin('https://example.com/')).toBe('https://tootem9.cc');
-    expect(absoluteSiteUrl('/zh', 'https://example.com')).toBe(
-      'https://tootem9.cc/zh'
+    expect(absoluteSiteUrl('/en', 'https://example.com')).toBe(
+      'https://tootem9.cc/en'
     );
 
-    const head = homeHead('en', 'https://example.com');
+    const head = homeHead('zh', 'https://example.com');
     expect(head.links[0]).toEqual({
       rel: 'canonical',
       href: 'https://tootem9.cc/',
+    });
+    expect(homeHead('en', 'https://example.com').links[0]).toEqual({
+      rel: 'canonical',
+      href: 'https://tootem9.cc/en',
     });
     expect(head.meta).toContainEqual({
       property: 'og:image',

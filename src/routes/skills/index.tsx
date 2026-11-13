@@ -7,11 +7,11 @@ import { contentHead } from '@/lib/seo';
 export const Route = createFileRoute('/skills/')({
   head: () =>
     contentHead(
-      'en',
+      'zh',
       '/skills',
-      message('skills_meta_title', 'en'),
-      message('skills_description', 'en'),
+      message('skills_meta_title', 'zh'),
+      message('skills_description', 'zh'),
       getRequestOrigin()
     ),
-  component: () => <SkillCatalog locale="en" />,
+  component: () => <SkillCatalog locale="zh" />,
 });

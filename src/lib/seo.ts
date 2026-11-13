@@ -1,5 +1,5 @@
 import { websiteConfig } from '@/config/website';
-import { type AppLocale, localeMeta, message } from '@/lib/locale';
+import { type AppLocale, localeMeta, localePath, message } from '@/lib/locale';
 
 function withoutTrailingSlash(value: string) {
   return value.replace(/\/$/, '');
@@ -23,8 +23,8 @@ export function contentHead(
   requestOrigin?: string
 ) {
   const pageUrl = absoluteSiteUrl(path, requestOrigin);
-  const englishPath = path.replace(/^\/zh(?=\/|$)/, '') || '/';
-  const chinesePath = englishPath === '/' ? '/zh' : `/zh${englishPath}`;
+  const englishPath = localePath('en', path);
+  const chinesePath = localePath('zh', path);
   const imageUrl = absoluteSiteUrl('/og.png', requestOrigin);
   return {
     meta: [
@@ -60,14 +60,14 @@ export function contentHead(
       {
         rel: 'alternate',
         hrefLang: 'x-default',
-        href: absoluteSiteUrl(englishPath, requestOrigin),
+        href: absoluteSiteUrl(chinesePath, requestOrigin),
       },
     ],
   };
 }
 
 export function homeHead(locale: AppLocale, requestOrigin?: string) {
-  const path = locale === 'zh' ? '/zh' : '/';
+  const path = localePath(locale);
   const title = message('site_title', locale);
   const description = message('site_description', locale);
   const pageUrl = absoluteSiteUrl(path, requestOrigin);
@@ -107,12 +107,12 @@ export function homeHead(locale: AppLocale, requestOrigin?: string) {
       {
         rel: 'alternate',
         hrefLang: 'en',
-        href: absoluteSiteUrl('/', requestOrigin),
+        href: absoluteSiteUrl('/en', requestOrigin),
       },
       {
         rel: 'alternate',
         hrefLang: 'zh-CN',
-        href: absoluteSiteUrl('/zh', requestOrigin),
+        href: absoluteSiteUrl('/', requestOrigin),
       },
       {
         rel: 'alternate',

@@ -10,23 +10,28 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as EnRouteImport } from './routes/en'
 import { Route as ManifestDotwebmanifestRouteImport } from './routes/manifest[.]webmanifest'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as ZhRouteImport } from './routes/zh'
+import { Route as EnIndexRouteImport } from './routes/en/index'
 import { Route as SkillsIndexRouteImport } from './routes/skills/index'
 import { Route as SkillsSlugRouteImport } from './routes/skills/$slug'
 import { Route as WorkflowsIndexRouteImport } from './routes/workflows/index'
 import { Route as WorkflowsSlugRouteImport } from './routes/workflows/$slug'
-import { Route as ZhIndexRouteImport } from './routes/zh/index'
-import { Route as ZhSkillsIndexRouteImport } from './routes/zh/skills/index'
-import { Route as ZhSkillsSlugRouteImport } from './routes/zh/skills/$slug'
-import { Route as ZhWorkflowsIndexRouteImport } from './routes/zh/workflows/index'
-import { Route as ZhWorkflowsSlugRouteImport } from './routes/zh/workflows/$slug'
+import { Route as EnSkillsIndexRouteImport } from './routes/en/skills/index'
+import { Route as EnSkillsSlugRouteImport } from './routes/en/skills/$slug'
+import { Route as EnWorkflowsIndexRouteImport } from './routes/en/workflows/index'
+import { Route as EnWorkflowsSlugRouteImport } from './routes/en/workflows/$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnRoute = EnRouteImport.update({
+  id: '/en',
+  path: '/en',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ManifestDotwebmanifestRoute = ManifestDotwebmanifestRouteImport.update({
@@ -44,10 +49,10 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ZhRoute = ZhRouteImport.update({
-  id: '/zh',
-  path: '/zh',
-  getParentRoute: () => rootRouteImport,
+const EnIndexRoute = EnIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => EnRoute,
 } as any)
 const SkillsIndexRoute = SkillsIndexRouteImport.update({
   id: '/skills/',
@@ -69,47 +74,42 @@ const WorkflowsSlugRoute = WorkflowsSlugRouteImport.update({
   path: '/workflows/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ZhIndexRoute = ZhIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => ZhRoute,
-} as any)
-const ZhSkillsIndexRoute = ZhSkillsIndexRouteImport.update({
+const EnSkillsIndexRoute = EnSkillsIndexRouteImport.update({
   id: '/skills/',
   path: '/skills/',
-  getParentRoute: () => ZhRoute,
+  getParentRoute: () => EnRoute,
 } as any)
-const ZhSkillsSlugRoute = ZhSkillsSlugRouteImport.update({
+const EnSkillsSlugRoute = EnSkillsSlugRouteImport.update({
   id: '/skills/$slug',
   path: '/skills/$slug',
-  getParentRoute: () => ZhRoute,
+  getParentRoute: () => EnRoute,
 } as any)
-const ZhWorkflowsIndexRoute = ZhWorkflowsIndexRouteImport.update({
+const EnWorkflowsIndexRoute = EnWorkflowsIndexRouteImport.update({
   id: '/workflows/',
   path: '/workflows/',
-  getParentRoute: () => ZhRoute,
+  getParentRoute: () => EnRoute,
 } as any)
-const ZhWorkflowsSlugRoute = ZhWorkflowsSlugRouteImport.update({
+const EnWorkflowsSlugRoute = EnWorkflowsSlugRouteImport.update({
   id: '/workflows/$slug',
   path: '/workflows/$slug',
-  getParentRoute: () => ZhRoute,
+  getParentRoute: () => EnRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/en': typeof EnRouteWithChildren
   '/manifest.webmanifest': typeof ManifestDotwebmanifestRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/zh': typeof ZhRouteWithChildren
   '/skills/$slug': typeof SkillsSlugRoute
   '/workflows/$slug': typeof WorkflowsSlugRoute
+  '/en/': typeof EnIndexRoute
   '/skills/': typeof SkillsIndexRoute
   '/workflows/': typeof WorkflowsIndexRoute
-  '/zh/': typeof ZhIndexRoute
-  '/zh/skills/$slug': typeof ZhSkillsSlugRoute
-  '/zh/workflows/$slug': typeof ZhWorkflowsSlugRoute
-  '/zh/skills/': typeof ZhSkillsIndexRoute
-  '/zh/workflows/': typeof ZhWorkflowsIndexRoute
+  '/en/skills/$slug': typeof EnSkillsSlugRoute
+  '/en/workflows/$slug': typeof EnWorkflowsSlugRoute
+  '/en/skills/': typeof EnSkillsIndexRoute
+  '/en/workflows/': typeof EnWorkflowsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -118,48 +118,48 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/skills/$slug': typeof SkillsSlugRoute
   '/workflows/$slug': typeof WorkflowsSlugRoute
+  '/en': typeof EnIndexRoute
   '/skills': typeof SkillsIndexRoute
   '/workflows': typeof WorkflowsIndexRoute
-  '/zh': typeof ZhIndexRoute
-  '/zh/skills/$slug': typeof ZhSkillsSlugRoute
-  '/zh/workflows/$slug': typeof ZhWorkflowsSlugRoute
-  '/zh/skills': typeof ZhSkillsIndexRoute
-  '/zh/workflows': typeof ZhWorkflowsIndexRoute
+  '/en/skills/$slug': typeof EnSkillsSlugRoute
+  '/en/workflows/$slug': typeof EnWorkflowsSlugRoute
+  '/en/skills': typeof EnSkillsIndexRoute
+  '/en/workflows': typeof EnWorkflowsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/en': typeof EnRouteWithChildren
   '/manifest.webmanifest': typeof ManifestDotwebmanifestRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/zh': typeof ZhRouteWithChildren
   '/skills/$slug': typeof SkillsSlugRoute
   '/workflows/$slug': typeof WorkflowsSlugRoute
+  '/en/': typeof EnIndexRoute
   '/skills/': typeof SkillsIndexRoute
   '/workflows/': typeof WorkflowsIndexRoute
-  '/zh/': typeof ZhIndexRoute
-  '/zh/skills/$slug': typeof ZhSkillsSlugRoute
-  '/zh/workflows/$slug': typeof ZhWorkflowsSlugRoute
-  '/zh/skills/': typeof ZhSkillsIndexRoute
-  '/zh/workflows/': typeof ZhWorkflowsIndexRoute
+  '/en/skills/$slug': typeof EnSkillsSlugRoute
+  '/en/workflows/$slug': typeof EnWorkflowsSlugRoute
+  '/en/skills/': typeof EnSkillsIndexRoute
+  '/en/workflows/': typeof EnWorkflowsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/en'
     | '/manifest.webmanifest'
     | '/robots.txt'
     | '/sitemap.xml'
-    | '/zh'
     | '/skills/$slug'
     | '/workflows/$slug'
+    | '/en/'
     | '/skills/'
     | '/workflows/'
-    | '/zh/'
-    | '/zh/skills/$slug'
-    | '/zh/workflows/$slug'
-    | '/zh/skills/'
-    | '/zh/workflows/'
+    | '/en/skills/$slug'
+    | '/en/workflows/$slug'
+    | '/en/skills/'
+    | '/en/workflows/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -168,37 +168,37 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/skills/$slug'
     | '/workflows/$slug'
+    | '/en'
     | '/skills'
     | '/workflows'
-    | '/zh'
-    | '/zh/skills/$slug'
-    | '/zh/workflows/$slug'
-    | '/zh/skills'
-    | '/zh/workflows'
+    | '/en/skills/$slug'
+    | '/en/workflows/$slug'
+    | '/en/skills'
+    | '/en/workflows'
   id:
     | '__root__'
     | '/'
+    | '/en'
     | '/manifest.webmanifest'
     | '/robots.txt'
     | '/sitemap.xml'
-    | '/zh'
     | '/skills/$slug'
     | '/workflows/$slug'
+    | '/en/'
     | '/skills/'
     | '/workflows/'
-    | '/zh/'
-    | '/zh/skills/$slug'
-    | '/zh/workflows/$slug'
-    | '/zh/skills/'
-    | '/zh/workflows/'
+    | '/en/skills/$slug'
+    | '/en/workflows/$slug'
+    | '/en/skills/'
+    | '/en/workflows/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  EnRoute: typeof EnRouteWithChildren
   ManifestDotwebmanifestRoute: typeof ManifestDotwebmanifestRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
-  ZhRoute: typeof ZhRouteWithChildren
   SkillsSlugRoute: typeof SkillsSlugRoute
   WorkflowsSlugRoute: typeof WorkflowsSlugRoute
   SkillsIndexRoute: typeof SkillsIndexRoute
@@ -212,6 +212,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en': {
+      id: '/en'
+      path: '/en'
+      fullPath: '/en'
+      preLoaderRoute: typeof EnRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/manifest.webmanifest': {
@@ -235,12 +242,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/zh': {
-      id: '/zh'
-      path: '/zh'
-      fullPath: '/zh'
-      preLoaderRoute: typeof ZhRouteImport
-      parentRoute: typeof rootRouteImport
+    '/en/': {
+      id: '/en/'
+      path: '/'
+      fullPath: '/en/'
+      preLoaderRoute: typeof EnIndexRouteImport
+      parentRoute: typeof EnRoute
     }
     '/skills/': {
       id: '/skills/'
@@ -270,68 +277,61 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WorkflowsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/zh/': {
-      id: '/zh/'
-      path: '/'
-      fullPath: '/zh/'
-      preLoaderRoute: typeof ZhIndexRouteImport
-      parentRoute: typeof ZhRoute
-    }
-    '/zh/skills/': {
-      id: '/zh/skills/'
+    '/en/skills/': {
+      id: '/en/skills/'
       path: '/skills'
-      fullPath: '/zh/skills/'
-      preLoaderRoute: typeof ZhSkillsIndexRouteImport
-      parentRoute: typeof ZhRoute
+      fullPath: '/en/skills/'
+      preLoaderRoute: typeof EnSkillsIndexRouteImport
+      parentRoute: typeof EnRoute
     }
-    '/zh/skills/$slug': {
-      id: '/zh/skills/$slug'
+    '/en/skills/$slug': {
+      id: '/en/skills/$slug'
       path: '/skills/$slug'
-      fullPath: '/zh/skills/$slug'
-      preLoaderRoute: typeof ZhSkillsSlugRouteImport
-      parentRoute: typeof ZhRoute
+      fullPath: '/en/skills/$slug'
+      preLoaderRoute: typeof EnSkillsSlugRouteImport
+      parentRoute: typeof EnRoute
     }
-    '/zh/workflows/': {
-      id: '/zh/workflows/'
+    '/en/workflows/': {
+      id: '/en/workflows/'
       path: '/workflows'
-      fullPath: '/zh/workflows/'
-      preLoaderRoute: typeof ZhWorkflowsIndexRouteImport
-      parentRoute: typeof ZhRoute
+      fullPath: '/en/workflows/'
+      preLoaderRoute: typeof EnWorkflowsIndexRouteImport
+      parentRoute: typeof EnRoute
     }
-    '/zh/workflows/$slug': {
-      id: '/zh/workflows/$slug'
+    '/en/workflows/$slug': {
+      id: '/en/workflows/$slug'
       path: '/workflows/$slug'
-      fullPath: '/zh/workflows/$slug'
-      preLoaderRoute: typeof ZhWorkflowsSlugRouteImport
-      parentRoute: typeof ZhRoute
+      fullPath: '/en/workflows/$slug'
+      preLoaderRoute: typeof EnWorkflowsSlugRouteImport
+      parentRoute: typeof EnRoute
     }
   }
 }
 
-interface ZhRouteChildren {
-  ZhIndexRoute: typeof ZhIndexRoute
-  ZhSkillsSlugRoute: typeof ZhSkillsSlugRoute
-  ZhWorkflowsSlugRoute: typeof ZhWorkflowsSlugRoute
-  ZhSkillsIndexRoute: typeof ZhSkillsIndexRoute
-  ZhWorkflowsIndexRoute: typeof ZhWorkflowsIndexRoute
+interface EnRouteChildren {
+  EnIndexRoute: typeof EnIndexRoute
+  EnSkillsSlugRoute: typeof EnSkillsSlugRoute
+  EnWorkflowsSlugRoute: typeof EnWorkflowsSlugRoute
+  EnSkillsIndexRoute: typeof EnSkillsIndexRoute
+  EnWorkflowsIndexRoute: typeof EnWorkflowsIndexRoute
 }
 
-const ZhRouteChildren: ZhRouteChildren = {
-  ZhIndexRoute: ZhIndexRoute,
-  ZhSkillsSlugRoute: ZhSkillsSlugRoute,
-  ZhWorkflowsSlugRoute: ZhWorkflowsSlugRoute,
-  ZhSkillsIndexRoute: ZhSkillsIndexRoute,
-  ZhWorkflowsIndexRoute: ZhWorkflowsIndexRoute,
+const EnRouteChildren: EnRouteChildren = {
+  EnIndexRoute: EnIndexRoute,
+  EnSkillsSlugRoute: EnSkillsSlugRoute,
+  EnWorkflowsSlugRoute: EnWorkflowsSlugRoute,
+  EnSkillsIndexRoute: EnSkillsIndexRoute,
+  EnWorkflowsIndexRoute: EnWorkflowsIndexRoute,
 }
 
-const ZhRouteWithChildren = ZhRoute._addFileChildren(ZhRouteChildren)
+const EnRouteWithChildren = EnRoute._addFileChildren(EnRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  EnRoute: EnRouteWithChildren,
   ManifestDotwebmanifestRoute: ManifestDotwebmanifestRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
-  ZhRoute: ZhRouteWithChildren,
   SkillsSlugRoute: SkillsSlugRoute,
   WorkflowsSlugRoute: WorkflowsSlugRoute,
   SkillsIndexRoute: SkillsIndexRoute,

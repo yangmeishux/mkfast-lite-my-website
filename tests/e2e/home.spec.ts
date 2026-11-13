@@ -1,18 +1,18 @@
 import { expect, test } from '@playwright/test';
 
 test.describe('simple landing page', () => {
-  test('renders English and localized SEO', async ({ page }) => {
+  test('renders Simplified Chinese and localized SEO', async ({ page }) => {
     await page.goto('/');
-    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'zh-CN');
     await expect(page.locator('header nav')).toBeVisible();
     await expect(page.locator('main h1')).toBeVisible();
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
       'href',
       'https://tootem9.cc/'
     );
-    await expect(page.locator('link[hreflang="zh-CN"]')).toHaveAttribute(
+    await expect(page.locator('link[hreflang="en"]')).toHaveAttribute(
       'href',
-      'https://tootem9.cc/zh'
+      'https://tootem9.cc/en'
     );
     await expect(page.locator('meta[property="og:url"]')).toHaveAttribute(
       'content',
@@ -35,19 +35,21 @@ test.describe('simple landing page', () => {
 
   test('opens a skill and the workflow in both locales', async ({ page }) => {
     await page.goto('/skills/grill-me');
-    await expect(page.locator('h1')).toContainText('Grill the plan');
+    await expect(page.locator('h1')).toContainText('拷打方案');
     await expect(page.locator('pre')).toContainText('请拷打这份方案');
-    await page.goto('/zh/workflows/ai-frontend-dev-workflow');
-    await expect(page.locator('html')).toHaveAttribute('lang', 'zh-CN');
-    await expect(page.locator('h1')).toContainText('从需求到可验收的代码');
+    await page.goto('/en/workflows/ai-frontend-dev-workflow');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+    await expect(page.locator('h1')).toContainText(
+      'From a request to code you can accept'
+    );
     await expect(page.locator('pre').first()).toContainText(
       'ai-frontend-dev-workflow'
     );
   });
 
-  test('renders Simplified Chinese at /zh', async ({ page }) => {
-    await page.goto('/zh');
-    await expect(page.locator('html')).toHaveAttribute('lang', 'zh-CN');
+  test('renders English at /en', async ({ page }) => {
+    await page.goto('/en');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
     await expect(page.locator('header nav')).toBeVisible();
     await expect(page.locator('main h1')).toBeVisible();
     await expect(page.locator('#stack')).toBeVisible();
@@ -77,12 +79,12 @@ test.describe('simple landing page', () => {
   }) => {
     await page.goto('/#faq');
     await page.locator('[data-slot="language-switcher-trigger"]').click();
-    const chineseLanguage = page.locator('[data-locale="zh"]');
-    await expect(chineseLanguage).toBeVisible();
-    await chineseLanguage.click();
+    const englishLanguage = page.locator('[data-locale="en"]');
+    await expect(englishLanguage).toBeVisible();
+    await englishLanguage.click();
 
-    await expect(page).toHaveURL(/\/zh#faq$/);
-    await expect(page.locator('html')).toHaveAttribute('lang', 'zh-CN');
+    await expect(page).toHaveURL(/\/en#faq$/);
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   });
 
   test('opens one FAQ answer at a time', async ({ page }) => {
@@ -141,7 +143,7 @@ test.describe('simple landing page', () => {
       '/blog',
       '/contact',
       '/api/auth',
-      '/zh/login',
+      '/en/login',
     ]) {
       const response = await page.goto(path);
       expect(response?.status(), path).toBe(404);
@@ -167,11 +169,11 @@ test.describe('simple landing page', () => {
       ([, url]) => new URL(url).pathname
     );
     expect(paths).toContain('/');
-    expect(paths).toContain('/zh');
+    expect(paths).toContain('/en');
     expect(paths).toContain('/skills');
-    expect(paths).toContain('/zh/skills');
+    expect(paths).toContain('/en/skills');
     expect(paths).toContain('/workflows/ai-frontend-dev-workflow');
-    expect(paths).toContain('/zh/skills/grill-me');
+    expect(paths).toContain('/en/skills/grill-me');
     expect(paths).toHaveLength(60);
 
     const manifest = await request.get('/manifest.webmanifest');

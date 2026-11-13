@@ -6,7 +6,7 @@ import { message } from '@/lib/locale';
 import { getRequestOrigin } from '@/lib/request-origin';
 import { contentHead } from '@/lib/seo';
 
-export const Route = createFileRoute('/zh/skills/$slug')({
+export const Route = createFileRoute('/en/skills/$slug')({
   loader: ({ params }) => {
     const skill = getSkill(params.slug);
     if (!skill) {
@@ -17,14 +17,14 @@ export const Route = createFileRoute('/zh/skills/$slug')({
   head: ({ loaderData }) => {
     if (!loaderData) {
       return {
-        meta: [{ title: message('not_found_meta_title', 'zh') }],
+        meta: [{ title: message('not_found_meta_title', 'en') }],
       };
     }
     return contentHead(
-      'zh',
-      `/zh/skills/${loaderData.slug}`,
-      `${loaderData.zh.title}｜${websiteConfig.legalName}`,
-      loaderData.zh.summary,
+      'en',
+      `/en/skills/${loaderData.slug}`,
+      `${loaderData.en.title} | ${websiteConfig.name}`,
+      loaderData.en.summary,
       getRequestOrigin()
     );
   },
@@ -33,5 +33,5 @@ export const Route = createFileRoute('/zh/skills/$slug')({
 
 function SkillRoute() {
   const skill = Route.useLoaderData();
-  return <SkillDetail locale="zh" skill={skill} />;
+  return <SkillDetail locale="en" skill={skill} />;
 }

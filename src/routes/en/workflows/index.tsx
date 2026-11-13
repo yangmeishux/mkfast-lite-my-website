@@ -4,14 +4,14 @@ import { message } from '@/lib/locale';
 import { getRequestOrigin } from '@/lib/request-origin';
 import { contentHead } from '@/lib/seo';
 
-export const Route = createFileRoute('/zh/workflows/')({
+export const Route = createFileRoute('/en/workflows/')({
   head: () =>
     contentHead(
-      'zh',
-      '/zh/workflows',
-      message('workflows_meta_title', 'zh'),
-      message('workflow_description', 'zh'),
+      'en',
+      '/en/workflows',
+      message('workflows_meta_title', 'en'),
+      message('workflow_description', 'en'),
       getRequestOrigin()
     ),
-  component: () => <WorkflowCatalog locale="zh" />,
+  component: () => <WorkflowCatalog locale="en" />,
 });

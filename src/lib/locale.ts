@@ -10,16 +10,20 @@ export function message(key: keyof typeof m, locale: AppLocale): string {
   return value({}, { locale });
 }
 
+export function localePath(locale: AppLocale, path = '/') {
+  const bare = path.replace(/^\/en(?=\/|$)/, '') || '/';
+  if (locale === 'en') {
+    return bare === '/' ? '/en' : `/en${bare}`;
+  }
+  return bare;
+}
+
 export function localizedPath(locale: AppLocale, hash = '') {
-  return `${locale === 'zh' ? '/zh' : '/'}${hash}`;
+  return `${localePath(locale)}${hash}`;
 }
 
 export function withLocale(pathname: string, locale: AppLocale) {
-  const bare = pathname.replace(/^\/zh(?=\/|$)/, '') || '/';
-  if (locale === 'zh') {
-    return bare === '/' ? '/zh' : `/zh${bare}`;
-  }
-  return bare;
+  return localePath(locale, pathname);
 }
 
 export const localeMeta = {

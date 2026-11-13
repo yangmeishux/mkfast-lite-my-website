@@ -1,4 +1,4 @@
-import type { AppLocale } from '@/lib/locale';
+import { type AppLocale, localePath } from '@/lib/locale';
 
 export const skillGroups = [
   { id: 'orchestration', zh: '编排', en: 'Orchestration' },
@@ -749,7 +749,7 @@ export function groupLabel(group: SkillGroupId, locale: AppLocale) {
 }
 
 export function practiceHref(locale: AppLocale, path: string) {
-  return locale === 'zh' ? `/zh${path}` : path;
+  return localePath(locale, path);
 }
 
 export function contentPaths() {
@@ -759,7 +759,10 @@ export function contentPaths() {
     ...skills.map((skill) => `/skills/${skill.slug}`),
     `/workflows/${workflow.slug}`,
   ];
-  return paths.flatMap((path) => [path, `/zh${path}`]);
+  return paths.flatMap((path) => [
+    localePath('zh', path),
+    localePath('en', path),
+  ]);
 }
 
 export function modeCopy(mode: WorkflowMode, locale: AppLocale): ModeCopy {
