@@ -14,6 +14,14 @@ export function localizedPath(locale: AppLocale, hash = '') {
   return `${locale === 'zh' ? '/zh' : '/'}${hash}`;
 }
 
+export function withLocale(pathname: string, locale: AppLocale) {
+  const bare = pathname.replace(/^\/zh(?=\/|$)/, '') || '/';
+  if (locale === 'zh') {
+    return bare === '/' ? '/zh' : `/zh${bare}`;
+  }
+  return bare;
+}
+
 export const localeMeta = {
   en: { hreflang: 'en', label: 'EN', messageKey: 'language_english' },
   zh: { hreflang: 'zh-CN', label: '中', messageKey: 'language_chinese' },

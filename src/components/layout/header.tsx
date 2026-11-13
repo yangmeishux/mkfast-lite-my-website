@@ -53,7 +53,15 @@ export function Header({ locale }: { locale: AppLocale }) {
                 href={localizedPath(locale, `#${item.id}`)}
                 className="rounded-md px-3 py-2 text-sm font-bold no-underline hover:bg-yellow hover:text-ink focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-focus"
               >
-                {message(item.labelKey as 'nav_stack', locale)}
+                {message(
+                  item.labelKey as
+                    | 'nav_stack'
+                    | 'nav_skills'
+                    | 'nav_workflow'
+                    | 'nav_structure'
+                    | 'nav_faq',
+                  locale
+                )}
               </a>
             ))}
           </div>
@@ -102,7 +110,15 @@ export function Header({ locale }: { locale: AppLocale }) {
                 href={localizedPath(locale, `#${item.id}`)}
                 className="rounded-lg border-2 border-transparent px-4 py-3 font-bold no-underline hover:border-ink hover:bg-yellow hover:text-ink"
               >
-                {message(item.labelKey as 'nav_stack', locale)}
+                {message(
+                  item.labelKey as
+                    | 'nav_stack'
+                    | 'nav_skills'
+                    | 'nav_workflow'
+                    | 'nav_structure'
+                    | 'nav_faq',
+                  locale
+                )}
               </a>
             ))}
             <ButtonLink

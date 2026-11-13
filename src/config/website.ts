@@ -18,6 +18,8 @@ export const websiteConfig = {
   },
   navigation: [
     { id: 'stack', labelKey: 'nav_stack' },
+    { id: 'skills', labelKey: 'nav_skills' },
+    { id: 'workflow', labelKey: 'nav_workflow' },
     { id: 'structure', labelKey: 'nav_structure' },
     { id: 'faq', labelKey: 'nav_faq' },
   ],

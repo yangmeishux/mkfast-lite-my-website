@@ -24,11 +24,25 @@ test.describe('simple landing page', () => {
     );
     await expect(page.locator('#foundation')).toHaveCount(0);
     await expect(page.locator('#stack')).toBeVisible();
+    await expect(page.locator('#skills')).toBeVisible();
+    await expect(page.locator('#workflow')).toBeVisible();
     await expect(page.locator('#structure')).toBeVisible();
     await expect(page.locator('#structure article')).toHaveCount(4);
     await expect(page.locator('#template')).toBeVisible();
     await expect(page.locator('#faq')).toBeVisible();
     await expect(page.locator('footer')).toBeVisible();
+  });
+
+  test('opens a skill and the workflow in both locales', async ({ page }) => {
+    await page.goto('/skills/grill-me');
+    await expect(page.locator('h1')).toContainText('Grill the plan');
+    await expect(page.locator('pre')).toContainText('请拷打这份方案');
+    await page.goto('/zh/workflows/ai-frontend-dev-workflow');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'zh-CN');
+    await expect(page.locator('h1')).toContainText('从需求到可验收的代码');
+    await expect(page.locator('pre').first()).toContainText(
+      'ai-frontend-dev-workflow'
+    );
   });
 
   test('renders Simplified Chinese at /zh', async ({ page }) => {
@@ -37,6 +51,8 @@ test.describe('simple landing page', () => {
     await expect(page.locator('header nav')).toBeVisible();
     await expect(page.locator('main h1')).toBeVisible();
     await expect(page.locator('#stack')).toBeVisible();
+    await expect(page.locator('#skills')).toBeVisible();
+    await expect(page.locator('#workflow')).toBeVisible();
     await expect(page.locator('#structure')).toBeVisible();
     await expect(page.locator('#template')).toBeVisible();
     await expect(page.locator('#faq')).toBeVisible();
@@ -150,7 +166,13 @@ test.describe('simple landing page', () => {
     const paths = [...sitemapXml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(
       ([, url]) => new URL(url).pathname
     );
-    expect(paths).toEqual(['/', '/zh']);
+    expect(paths).toContain('/');
+    expect(paths).toContain('/zh');
+    expect(paths).toContain('/skills');
+    expect(paths).toContain('/zh/skills');
+    expect(paths).toContain('/workflows/ai-frontend-dev-workflow');
+    expect(paths).toContain('/zh/skills/grill-me');
+    expect(paths).toHaveLength(60);
 
     const manifest = await request.get('/manifest.webmanifest');
     expect(manifest.ok()).toBe(true);

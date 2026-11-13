@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { websiteConfig } from '@/config/website';
-import { localeMeta, localizedPath } from '@/lib/locale';
+import { localeMeta, localizedPath, withLocale } from '@/lib/locale';
 import { absoluteSiteUrl, homeHead, siteOrigin } from '@/lib/seo';
 import { cn } from '@/lib/utils';
 
@@ -11,6 +11,10 @@ describe('tootem9 core contracts', () => {
     expect(localizedPath('zh')).toBe('/zh');
     expect(localizedPath('en', '#stack')).toBe('/#stack');
     expect(localizedPath('zh', '#stack')).toBe('/zh#stack');
+    expect(withLocale('/skills/grill-me', 'zh')).toBe('/zh/skills/grill-me');
+    expect(withLocale('/zh/skills/grill-me', 'en')).toBe('/skills/grill-me');
+    expect(withLocale('/zh', 'en')).toBe('/');
+    expect(withLocale('/', 'zh')).toBe('/zh');
     expect(localeMeta.zh.hreflang).toBe('zh-CN');
   });
 

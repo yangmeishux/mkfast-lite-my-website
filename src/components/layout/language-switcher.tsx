@@ -8,12 +8,7 @@ import {
   DropdownMenuLinkItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import {
-  type AppLocale,
-  localeMeta,
-  localizedPath,
-  message,
-} from '@/lib/locale';
+import { type AppLocale, localeMeta, message, withLocale } from '@/lib/locale';
 
 function withPrefix(value: string | undefined, prefix: '?' | '#') {
   if (!value) {
@@ -70,7 +65,7 @@ export function LanguageSwitcher({ locale }: { locale: AppLocale }) {
             <DropdownMenuLinkItem
               key={option}
               data-locale={option}
-              href={`${localizedPath(option)}${suffix}`}
+              href={`${withLocale(location.pathname, option)}${suffix}`}
               aria-current={current ? 'page' : undefined}
             >
               <span className="w-7 text-xs font-black uppercase">

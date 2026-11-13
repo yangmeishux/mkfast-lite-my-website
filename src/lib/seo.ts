@@ -15,6 +15,57 @@ export function absoluteSiteUrl(path: string, requestOrigin?: string) {
   return new URL(path, `${siteOrigin(requestOrigin)}/`).toString();
 }
 
+export function contentHead(
+  locale: AppLocale,
+  path: string,
+  title: string,
+  description: string,
+  requestOrigin?: string
+) {
+  const pageUrl = absoluteSiteUrl(path, requestOrigin);
+  const englishPath = path.replace(/^\/zh(?=\/|$)/, '') || '/';
+  const chinesePath = englishPath === '/' ? '/zh' : `/zh${englishPath}`;
+  const imageUrl = absoluteSiteUrl('/og.png', requestOrigin);
+  return {
+    meta: [
+      { title },
+      { name: 'description', content: description },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:site_name', content: websiteConfig.legalName },
+      { property: 'og:title', content: title },
+      { property: 'og:description', content: description },
+      { property: 'og:url', content: pageUrl },
+      {
+        property: 'og:locale',
+        content: localeMeta[locale].hreflang.replace('-', '_'),
+      },
+      { property: 'og:image', content: imageUrl },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:title', content: title },
+      { name: 'twitter:description', content: description },
+      { name: 'twitter:image', content: imageUrl },
+    ],
+    links: [
+      { rel: 'canonical', href: pageUrl },
+      {
+        rel: 'alternate',
+        hrefLang: 'en',
+        href: absoluteSiteUrl(englishPath, requestOrigin),
+      },
+      {
+        rel: 'alternate',
+        hrefLang: 'zh-CN',
+        href: absoluteSiteUrl(chinesePath, requestOrigin),
+      },
+      {
+        rel: 'alternate',
+        hrefLang: 'x-default',
+        href: absoluteSiteUrl(englishPath, requestOrigin),
+      },
+    ],
+  };
+}
+
 export function homeHead(locale: AppLocale, requestOrigin?: string) {
   const path = locale === 'zh' ? '/zh' : '/';
   const title = message('site_title', locale);
